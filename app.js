@@ -9,6 +9,8 @@ var output = {"ip_address": "",
 app.get('/', function (req, res) {
     
   console.log('IP = ', req.ip);
+  console.log('x-forwarded-for ', req.headers['x-forwarded-for']);
+  console.log('remoteaddress ', req.connection.remoteAddress);
   console.log('OS ', req.headers['user-agent']);
   console.log('lng ', req.headers['accept-language']);
   
