@@ -14,7 +14,12 @@ app.get('/', function (req, res) {
   console.log('OS ', req.headers['user-agent']);
   console.log('lng ', req.headers['accept-language']);
   
-  output.ip_address = req.ip;
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  if (ip.substr(0, 7) == "::ffff:") {
+      ip = ip.substr(7)
+  };
+  
+  output.ip_address = ip;
   output.language = getLanguage(req.headers['accept-language']);
   output.software = getSoftware(req.headers['user-agent']);
   var x = JSON.stringify(output);
